@@ -8,16 +8,10 @@ Proyecto de desarrollo de una aplicación para gestionar una competición de e-s
 Siguiendo los requisitos del proyecto, este repositorio se divide en las siguientes carpetas por módulo:
 * `/BasesDeDatos`: Modelos MER y Relacional.
 * `/EntornosDeDesarrollo`: Diagramas de Casos de Uso y Documento de Requisitos.
-* `/Programacion`: Código Java (Gestión por consola en memoria).
+* `/Programacion`: Código Java.
 
 ## Estado Actual: Fase 1
 - [ ] Definición de requisitos funcionales y no funcionales.
 - [ ] Diseño del Diagrama de Casos de Uso.
 - [ ] Diseño del Modelo Entidad-Relación (MER) y Modelo Relacional.
-- [ ] Desarrollo del programa Java interactivo por consola (validación y almacenamiento en memoria).
-
-##  Equipo de Trabajo
-*(Jon, Ibon, Eder, Lier, Martin)*
-- Miembro 1 (Rama: `feature/nombre1`)
-- Miembro 2 (Rama: `feature/nombre2`)
-- ...
+- [ ] Desarrollo del programa Java interactivo por consola.
