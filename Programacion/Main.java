@@ -59,7 +59,7 @@ catch (Exception e){
         System.out.println("Cual es el nickname de tu jugador?");
         String nickname = "";
         nickname = nicknameFun(nickname);
-        System.out.println("De que rol jugara este jugador entre las opciones tenemos blue,green,yellow,jungla y carry");
+        System.out.println("De que rol jugara este jugador entre las opciones tenemos blue, green, yellow, jungla y carry");
         String rol = "";
         rol = rolFun(rol);
         System.out.println("Cuanto quieres pagarle este jugador al mes tiene que respetar el salario minimo interprofesional (1221)");
@@ -172,6 +172,7 @@ catch (Exception e){
         do {
             try{
                 nacionalidad = dc.nextLine();
+                nacionalidad = nacionalidad.toUpperCase();
                 Pattern pat = Pattern.compile("^(ALB|GER|AND|ARM|AUT|AZE|BEL|BLR|BIH|BUL|CYP|CRO|DEN|SVK|SLO|ESP|EST|FIN|FRA|GEO|GRE|HUN|IRL|ISL|ITA|KOS|LAT|LIE|LTU|LUX|MLT|MDA|MON|MNE|NOR|NED|POL|POR|GBR|CZE|MKD|ROU|RUS|SMR|SRB|SWE|SUI|TUR|UKR|VAT|OTR)$");
                 Matcher mat = pat.matcher(nacionalidad);
                 if (mat.matches()){
@@ -285,6 +286,7 @@ catch (Exception e){
 
 
         trigrama = dc.nextLine();
+        trigrama = trigrama.toUpperCase();
         Pattern pat = Pattern.compile("^[A-ZÁÉÍÓÚÑ]{1,3}$");
         Matcher mat = pat.matcher(trigrama);
         if (mat.matches()){
