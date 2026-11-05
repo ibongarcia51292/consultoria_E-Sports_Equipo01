@@ -10,8 +10,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
+    // estas variables regulares sirven para guardar globalmente la lista del equipo y del jugador
     static StringBuilder registroEquipo = new StringBuilder();
     static StringBuilder registrojugador = new StringBuilder();
+    // He puesto el salario minimo interprofesional porque en teoria es algo fijo y si en algun momento cambia cambiar solo 1 y no el codigo en su totalidad
     static int salarioMinimoInterprofesional = 1221;
     public static void main(String[] args) {
 
@@ -20,33 +22,28 @@ try {
     LeerJugador();
     leerEquipo();
     listaFinal();
-}catch (Exception e){
+}
+catch (Exception e){
     System.out.println("Ha ocurrido un error inexperado" + e.getMessage() + e.getLocalizedMessage());
 }
     }
 
-    public static void MostrarMenu () {
-        boolean comprobador = true;
-        do {
-            comprobador = true;
-            try{
-                Scanner dc = new Scanner(System.in);
+    public static void MostrarMenu () throws Exception {
                 System.out.println("-- BIENVENIDO AL TORNEO DE E-SPORTS --");
                 System.out.println("Primero vamos a introducir el jugador y despues vamos a introducir su equipo");
-            }
-            catch (InputMismatchException e){
-                System.out.println("Solo puedes poner numero amigo mio " + e.getCause() + e.getMessage());
-                comprobador = false;
-
-            }
-        }
-        while (!comprobador);
     }
-    public static void listaFinal (){
+    // la lista final de los jugadores y equipos
+    public static void listaFinal() throws  Exception{
+
         System.out.println(registrojugador);
         System.out.println(registroEquipo);
+
     }
-    public static void LeerJugador (){
+    // en leerJugador he puesto una funcion por cada pregunta con sus validaciones correspondientes.
+    public static void LeerJugador() throws  Exception{
+        try {
+
+
         System.out.println("Pon tu nombre");
         String nombre = "";
         nombre = nombreJug(nombre);
@@ -56,7 +53,7 @@ try {
         System.out.println("Pon tu nacionalidad con un trigrama si no eres europeo pon OTR");
         String nacionalidad = "";
         nacionalidad = nacionalidadfun(nacionalidad);
-        System.out.println("pon la fecha de nacimiento con este formato yyyy");
+        System.out.println("pon la fecha de nacimiento con este formato yyyy-MM-dd");
         LocalDate fechaNac = LocalDate.now();
         fechaNac = leerFechaDeNacimiento(fechaNac);
         System.out.println("Cual es el nickname de tu jugador?");
@@ -69,13 +66,18 @@ try {
         int sueldo  = 0;
         sueldo = sueldoFun(sueldo);
         tomarDatosDeJugadores(nombre,apellidos,nacionalidad,fechaNac,nickname,rol,sueldo);
+    }catch (Exception e){
+            System.out.println("Ha habido un problema inesperado");
+        }
+
     }
-    public static void tomarDatosDeJugadores(String nombre,String apellidos,String nacionalidad, LocalDate fechanaz, String nickname, String rol, int sueldo){
+    public static void tomarDatosDeJugadores(String nombre,String apellidos,String nacionalidad, LocalDate fechanaz, String nickname, String rol, int sueldo) throws  Exception{
         registrojugador.append("--Jugador Registrado--\n");
         registrojugador.append("Nombre: " + nombre + "\n" +
                 "Apellidos: "+apellidos+"\n" +
                 "Nacionalidad: "+nacionalidad+"\n" +
                 "Fecha de nacimiento: " + fechanaz +"\n" +
+                "Nickname del jugador: " +nickname+"\n" +
                 "Rol seleccionado: " +rol+ "\n" +
                 "sueldo del jugador: " +sueldo+"€ \n");
     }
@@ -170,7 +172,7 @@ try {
         do {
             try{
                 nacionalidad = dc.nextLine();
-                Pattern pat = Pattern.compile("^(ALB|GER|AND|ARM|AUT|AZE|BEL|BLR|BIH|BUL|CYP|CRO|DEN|SVK|SLO|ESP|EST|FIN|FRA|GEO|GRE|HUN|IRL|ISL|ITA|KOS|LAT|LIE|LTU|LUX|MLT|MDA|MON|MNE|NOR|NED|POL|POR|GBR|CZE|MKD|ROU|RUS|SMR|SRB|SWE|SUI|TUR|UKR|VAT|OTR])$");
+                Pattern pat = Pattern.compile("^(ALB|GER|AND|ARM|AUT|AZE|BEL|BLR|BIH|BUL|CYP|CRO|DEN|SVK|SLO|ESP|EST|FIN|FRA|GEO|GRE|HUN|IRL|ISL|ITA|KOS|LAT|LIE|LTU|LUX|MLT|MDA|MON|MNE|NOR|NED|POL|POR|GBR|CZE|MKD|ROU|RUS|SMR|SRB|SWE|SUI|TUR|UKR|VAT|OTR)$");
                 Matcher mat = pat.matcher(nacionalidad);
                 if (mat.matches()){
                     comprobador = true;
@@ -207,7 +209,7 @@ try {
         do {
             try{
                 apellidos = dc.nextLine();
-                Pattern pat = Pattern.compile("^[A-Za-zÁÉÍÓÚáéíóúñÑ]+( ?[A-Za-zÁÉÍÓÚáéíóúñÑ]+$)");
+                Pattern pat = Pattern.compile("^[A-Za-zÁÉÍÓÚáéíóúñÑ]+( ?[A-Za-zÁÉÍÓÚáéíóúñÑ]+)$");
                 Matcher mat = pat.matcher(apellidos);
                 if (mat.matches()){
                     comprobador = true;
@@ -247,7 +249,9 @@ try {
         while (!comprobador);
         return nombre;
     }
-    public static void leerEquipo(){
+    // He puesto en leer equipo funciones en cada pregunta con sus validaciones correspondientes.
+    public static void leerEquipo() throws  Exception{
+        try{
         System.out.println("Porfavor elige un nombre para el equipo");
         String nombreEquipo = "";
         nombreEquipo = expresionesNombreEquipo(nombreEquipo);
@@ -258,19 +262,22 @@ try {
         System.out.println("Cuantos jugadores tienes");
         String numeroDeJug = "";
         numeroDeJug = numerojug(numeroDeJug);
-        System.out.println("pon el trigrama de tu equipo");
+        System.out.println("pon el trigrama de tu equipo minimo 1 sigla maximo 3");
         String trigrama = "";
         trigrama = trigramaFun(trigrama);
         tomarDatosEquipo(nombreEquipo,tiempo,numeroDeJug,trigrama);
+    }catch (Exception e){
+            System.out.println("Ha ocurrido un problema inesperado");
+        }
     }
-    public static void tomarDatosEquipo (String nombreEquipo, LocalDate tiempo, String numeroDeJug, String trigrama) {
+    public static void tomarDatosEquipo (String nombreEquipo, LocalDate tiempo, String numeroDeJug, String trigrama) throws  Exception {
         registroEquipo.append("--Equipo Registrado--\n");
         registroEquipo.append("Nombre de equipo: "+nombreEquipo+ "\n"
                 + "Fecha de creacion del equipo: " + tiempo + "\n" +
                 "Numero de Jugadores: "+numeroDeJug +"\n" +
                 "Trigrama del equipo: "+trigrama+"\n" );
     }
-    public static String trigramaFun(String trigrama){
+    public static String trigramaFun(String trigrama) throws  Exception{
         Scanner dc = new Scanner(System.in);
         boolean comprobacion = true;
         do {
@@ -278,7 +285,7 @@ try {
 
 
         trigrama = dc.nextLine();
-        Pattern pat = Pattern.compile("^[A-ZÁÉÍÓÚÑ]{3}$");
+        Pattern pat = Pattern.compile("^[A-ZÁÉÍÓÚÑ]{1,3}$");
         Matcher mat = pat.matcher(trigrama);
         if (mat.matches()){
             comprobacion = true;
@@ -295,7 +302,7 @@ try {
         return trigrama;
 
     }
-    public static String numerojug(String numeroDeJug){
+    public static String numerojug(String numeroDeJug)throws  Exception{
         Scanner dc = new Scanner(System.in);
         boolean confirmacion = true;
         do {
@@ -316,7 +323,7 @@ try {
         }while (!confirmacion);
         return numeroDeJug;
     }
-    public static LocalDate tomartiempo (LocalDate tiempo){
+    public static LocalDate tomartiempo (LocalDate tiempo)throws  Exception{
         Scanner dc = new Scanner(System.in);
         boolean confirmacion = true;
         do {
@@ -335,7 +342,7 @@ try {
         return tiempo;
 
     }
-    public static String expresionesNombreEquipo(String nombreEquipo){
+    public static String expresionesNombreEquipo(String nombreEquipo)throws  Exception{
         boolean comprobador = false;
         Scanner dc = new Scanner(System.in);
         do {
