@@ -21,7 +21,7 @@ try {
     leerEquipo();
     listaFinal();
 }catch (Exception e){
-    System.out.println("Ha ocurrido un error inexperado");
+    System.out.println("Ha ocurrido un error inexperado" + e.getMessage() + e.getLocalizedMessage());
 }
     }
 
