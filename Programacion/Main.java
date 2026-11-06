@@ -1,4 +1,5 @@
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.time.*;
 
@@ -23,8 +24,11 @@ public class Main {
         int edad = Period.between(fechanacimiento, LocalDate.now()).getYears();
 
         StringBuilder sb = new StringBuilder();
-        sb.append("El jugador ").append(nom).append(" ").append(apellido).append(", ").append("tiene ").append(edad).append(", ").append("tiene como apodo ").append(apodo).append(", ").append("juega con el rol de ").append(rol).append( "y cobra ").append(sueldo).append("€");
-
+        sb.append("El jugador ").append(nom).append(" ").append(apellido+".\n")
+                .append("Edad: ").append(edad+"\n")
+                .append("Apodo: ").append(apodo+"\n")
+                .append("Rol: ").append(rol+"\n")
+                .append("Sueldo: ").append(sueldo).append("€");
         return sb;
     }
     public static void main(String[] args) {
@@ -66,14 +70,15 @@ public class Main {
                 salir= false;
             }catch (Exception e){
                 System.out.println("Error: "+e.getMessage());
-                salir=false;
+                salir= false;
                     }
             }while (salir==false);
         }
         public static void IntroduceJugadores() {
+
             if (equipocreado == false){
                 System.out.println("\nPara poder introducir los jugadores tienes que crear el equipo.");
-                MostrarMenu();
+                IntroduceEquipo();
             }else {
                 System.out.println("Porfavor introduce el nombre del jugador:");
                 nom = sc.nextLine();
@@ -81,17 +86,41 @@ public class Main {
                 apellido = sc.nextLine();
                 System.out.println("Ahora la nacionalidad:");
                 nacionalidad = sc.nextLine();
-                System.out.println("La fecha de nacimiento del jugador: (dd/MM/yyyy)");
-                fecha = sc.nextLine();
+
+                boolean fechabien= false;
+                do {
+                    System.out.println("La fecha de nacimiento del jugador: (dd/MM/yyyy)");
+                    fecha = sc.nextLine();
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        LocalDate fechacorrecta = LocalDate.parse(fecha, formatter);
+                        fechabien = true;
+                    }catch(DateTimeParseException e){
+                        System.out.println("Porfavor usa el formato correcto!");
+                    }
+                }while (fechabien==false);
                 System.out.println("Porfavor ingresa el apodo del jugador:");
                 apodo = sc.nextLine();
                 System.out.println("Ahora el rol: (Capitan o jugador)");
                 rol = sc.nextLine();
-                System.out.println("Por ultimo el sueldo: (Minimo 1300€)");
-                sueldo = sc.nextInt();
-
+                boolean sueldobien= false;
+                do {
+                    try{
+                        System.out.println("Por ultimo el sueldo: (Minimo 1300€)");
+                        sueldo = sc.nextInt();
+                        if (sueldo <= 1300){
+                            throw new Exception("Porfavor respeta a tus jugadores!");
+                        }
+                        sueldobien=true;
+                    }catch (NumberFormatException e){
+                        System.out.println("Debes ingresar un numero valido porfavor.");
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }while(sueldobien==false);
                 System.out.println("\n ===JUGADOR REGISTRADO=== ");
                 System.out.println(jugador().toString());
+                sc.nextLine();
             }
         }
 
@@ -100,8 +129,6 @@ public class Main {
                 nombrequipo = sc.nextLine();
             System.out.println("Fecha de creacion del equipo: "+LocalDate.now());
             sc.nextLine();
-            System.out.println("Dime el numero de jugadores: ");
-            numjugadores = sc.nextInt();
             equipocreado = true;
         }
 
