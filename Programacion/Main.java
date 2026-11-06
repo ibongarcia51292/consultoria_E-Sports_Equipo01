@@ -14,7 +14,7 @@ public class Main {
     static StringBuilder registroEquipo = new StringBuilder();
     static StringBuilder registrojugador = new StringBuilder();
     // He puesto el salario minimo interprofesional porque en teoria es algo fijo y si en algun momento cambia cambiar solo 1 y no el codigo en su totalidad
-    static int salarioMinimoInterprofesional = 1221;
+    static double salarioMinimoInterprofesional = 1221;
     public static void main(String[] args) {
 
 try {
@@ -62,8 +62,8 @@ catch (Exception e){
         System.out.println("De que rol jugara este jugador entre las opciones tenemos blue, green, yellow, jungla y carry");
         String rol = "";
         rol = rolFun(rol);
-        System.out.println("Cuanto quieres pagarle este jugador al mes tiene que respetar el salario minimo interprofesional (1221)");
-        int sueldo  = 0;
+        System.out.println("Cuanto quieres pagarle este jugador al mes tiene que respetar el salario minimo interprofesional (" + salarioMinimoInterprofesional + ")");
+        double sueldo  = 0;
         sueldo = sueldoFun(sueldo);
         tomarDatosDeJugadores(nombre,apellidos,nacionalidad,fechaNac,nickname,rol,sueldo);
     }catch (Exception e){
@@ -71,7 +71,7 @@ catch (Exception e){
         }
 
     }
-    public static void tomarDatosDeJugadores(String nombre,String apellidos,String nacionalidad, LocalDate fechanaz, String nickname, String rol, int sueldo) throws  Exception{
+    public static void tomarDatosDeJugadores(String nombre,String apellidos,String nacionalidad, LocalDate fechanaz, String nickname, String rol, double sueldo) throws  Exception{
         registrojugador.append("--Jugador Registrado--\n");
         registrojugador.append("Nombre: " + nombre + "\n" +
                 "Apellidos: "+apellidos+"\n" +
@@ -81,20 +81,24 @@ catch (Exception e){
                 "Rol seleccionado: " +rol+ "\n" +
                 "sueldo del jugador: " +sueldo+"€ \n");
     }
-    public static int sueldoFun(int sueldo){
+    public static double sueldoFun(double sueldo){
         Scanner dc = new Scanner(System.in);
         boolean comprobador = false;
         do {
             try {
-                sueldo = dc.nextInt();
+                sueldo = dc.nextDouble();
                 if (sueldo >= salarioMinimoInterprofesional){
                     comprobador = true;
                 }
                 else{
                   System.out.println("tiene que ser un sueldo mayor a " + salarioMinimoInterprofesional);
+
                 }
-            }catch (InputMismatchException e){
-                System.out.println("porfavor pon un numero y sin ningun simbolo");
+            }catch (InputMismatchException e)
+            {
+                System.out.println("porfavor pon un numero con los centimos puestos con coma y sin ningun simbolo");
+                dc.nextLine();
+                comprobador = false;
             }
 
         }while (!comprobador);
@@ -173,7 +177,7 @@ catch (Exception e){
             try{
                 nacionalidad = dc.nextLine();
                 nacionalidad = nacionalidad.toUpperCase();
-                Pattern pat = Pattern.compile("^(ALB|GER|AND|ARM|AUT|AZE|BEL|BLR|BIH|BUL|CYP|CRO|DEN|SVK|SLO|ESP|EST|FIN|FRA|GEO|GRE|HUN|IRL|ISL|ITA|KOS|LAT|LIE|LTU|LUX|MLT|MDA|MON|MNE|NOR|NED|POL|POR|GBR|CZE|MKD|ROU|RUS|SMR|SRB|SWE|SUI|TUR|UKR|VAT|OTR)$");
+                Pattern pat = Pattern.compile("^(ALB|DEU|AND|ARM|AUT|AZE|BEL|BLR|BIH|BGR|CYP|HRV|DNK|SVK|SVN|ESP|EST|FIN|FRA|GEO|GRC|HUN|IRL|ISL|ITA|XKX|LVA|LIE|LTU|LUX|MLT|MDA|MCO|MNE|NOR|NLD|POL|PRT|GBR|CZE|MKD|ROU|RUS|SMR|SRB|SWE|CHE|TUR|UKR|VAT|OTR)$");
                 Matcher mat = pat.matcher(nacionalidad);
                 if (mat.matches()){
                     comprobador = true;
