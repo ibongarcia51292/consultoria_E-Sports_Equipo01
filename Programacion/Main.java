@@ -77,7 +77,8 @@ public class Main {
         System.out.println("--- INTRODUCIR DATOS DEL JUGADOR ---");
 
         String nombreJugador = leerNombrePropio(sc, "Nombre: ");
-        String apellidoJugador = leerNombrePropio(sc, "Apellido: ");
+        String apellido1Jugador = leerNombrePropio(sc, "Apellido 1: ");
+        String apellido2Jugador = leerNombrePropio(sc, "Apellido 2: ");
         String nacionalidadJugador = leerNacionalidad(sc);
         LocalDate fechaNacimientoJugador = leerFechaValida(sc, "Fecha de nacimiento (dd/MM/yyyy): ");
         String nicknameJugador = leerTextoObligatorio(sc, "Nickname: ");
@@ -104,7 +105,7 @@ public class Main {
         }
 
         System.out.println();
-        mostrarDatosJugador(nombreJugador, apellidoJugador, nicknameJugador, nacionalidadJugador, fechaNacimientoJugador.format(FORMATO_FECHA), rolJugador, sueldoJugador);
+        mostrarDatosJugador(nombreJugador, apellido1Jugador, apellido2Jugador, nicknameJugador, nacionalidadJugador, fechaNacimientoJugador.format(FORMATO_FECHA), rolJugador, sueldoJugador);
     }
 
     public static String leerRol(Scanner sc) {
@@ -234,10 +235,10 @@ public class Main {
         System.out.println(sb.toString());
     }
 
-    public static void mostrarDatosJugador(String nombre, String apellido, String nickname, String nacionalidad, String fechaNac, String rol, double sueldo) {
+    public static void mostrarDatosJugador(String nombre, String apellido1, String apellido2, String nickname, String nacionalidad, String fechaNac, String rol, double sueldo) {
         StringBuilder sb = new StringBuilder();
         sb.append("=== DATOS DEL JUGADOR REGISTRADO ===\n")
-                .append(" - Nombre completo: ").append(nombre).append(" ").append(apellido).append("\n")
+                .append(" - Nombre completo: ").append(nombre).append(" ").append(apellido1).append(" ").append(apellido2).append("\n")
                 .append(" - Nickname: ").append(nickname).append("\n")
                 .append(" - Nacionalidad: ").append(nacionalidad).append("\n")
                 .append(" - Fecha de nacimiento: ").append(fechaNac).append("\n")
