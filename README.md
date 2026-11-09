@@ -1,7 +1,7 @@
 <h1>Consultoría E-Sport - Equipo 01 - Reto 1</h1>
 
 <h2>Descripción del proyecto</h2>
-Proyecto de desarrollo de una aplicación para gestionar una competición de e-sports, donde podrás registrar un equipo y un usuario a base de código de java. 
+Proyecto de desarrollo de una aplicación para gestionar una competición de E-Sports, donde podrás registrar un equipo y un usuario, programado en lenguaje Java. 
 
 ## Como pueden usarlo los usuarios
 Al instalar el código al inicializarlo podrás observar como ser abre un menú en el que te pregunta que quieres hacer entre crear un equipo o registrar un jugador. Un jugador no puede existir en la base de datos si no hay ningún equipo creado antes. Estos son los datos que te preguntaría el programa según lo que hayas elegido en el menú.
